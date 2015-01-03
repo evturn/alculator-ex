@@ -14,14 +14,12 @@ app.get('/api', function( request, response) {
 });
 
 
-
-
 //Where to serve static content
-app.use( express.static( path.join( application_root, 'public') ) );
+app.use(express.static(path.join( application_root, 'public')));
 app.use(bodyParser());
 
 //Start server
-var port = 4711;
+var port = 3000;
 
 app.listen( port, function() {
     console.log('Express server listening on port %d in %s mode', port, app.settings.env );
