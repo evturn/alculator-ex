@@ -7,6 +7,13 @@ var application_root = __dirname,
 //Create server
 var app = express();
 
+
+app.get( '/api', function( request, response ) {
+    response.send( 'Library API is running' );
+});
+
+
+
 //Where to serve static content
 app.use( express.static( path.join( application_root, 'public') ) );
 app.use(bodyParser());
