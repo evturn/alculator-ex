@@ -11,24 +11,57 @@ app = express();
 logger = require('./logger');
   app.use(logger);
 
+app.get('/blocks', function(request, response) {
+  var blocks = ['Fixed', 'Movable', 'Rotating'];
+  if (request.query.limit >= 0) {
+    response.json(blocks.slice(0, request.query.limit));
+  } else {
+  response.json(blocks);  
+  }
+});
 
-app.get('blocks', function(request, response) {
-  var blocks = ['Fixed', 'Movable']
-})
+var blocks = {
+  'Fixed': 'Gonna stay where it is',
+  'Movable': 'Could be moved',
+  'Rotating': 'Moving in a circle'
+};
+app.get('/blocks/:name', function(request, response) {
+  var description = blocks[request.params.name];
+  response.json(description);
+  if (!description) {
+    response.status(404).json('We aint got ' + request.params.name);
+  } else {
+    response.json(description);
+  }
+});
+
+
+
+
+app.use(function(request, response, next){
+  if (request.path === "/cities"){
+    next();
+  } else {
+    response.status(404).json("Path requested does not exist");
+  }
+});
+app.get('/cities', function(request, response){
+  var cities = ['Caspiana', 'Indigo', 'Paradise'];
+  response.json(cities);
+});
+
+
+
+
+
+
 
 app.get('/api', function( request, response) {
     response.send('API is running');
 });
 
-
-
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(bodyParser());
-
-
-var port = 3000;
-
-app.listen( port, function() {
+app.listen(3000, function() {
     console.log('Listening on 3000 \n');
 });
 
