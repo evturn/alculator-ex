@@ -10,6 +10,20 @@ var users = require('./routes/users');
 
 var app = express();
 
+
+app.get('/', function(req, res) {
+    res.send('FUCK!')
+})
+
+var server = app.listen(3000, function() {
+    var host = server.address().address
+    var port = server.address().port
+    console.log('Shitting bricks')
+})
+
+
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
