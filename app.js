@@ -8,19 +8,11 @@ var application_root = __dirname,
 var app = express();
 
 
+
 app.get('/api', function( request, response) {
     response.send('API is running');
 });
 
-app.get('/api/rounds', function(request, response) {
-  return RoundModel.find(function(err, rounds){
-    if(!err) {
-      return response.send(rounds);
-    } else {
-      return console.log(err);
-    }
-  })
-})
 
 
 
@@ -49,22 +41,4 @@ var Round = new mongoose.Schema({
 })
 
 var RoundModel = mongoose.model('Round', Round);
-
-//Configure server
-app.configure( function() {
-    //parses request body and populates request.body
-    app.use( express.bodyParser() );
-
-    //checks request.body for HTTP method overrides
-    app.use( express.methodOverride() );
-
-    //perform route lookup based on url and HTTP method
-    app.use( app.router );
-
-    //Where to serve static content
-    app.use( express.static( path.join( application_root, 'site') ) );
-
-    //Show all errors in development
-    app.use( express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
 

@@ -1,7 +1,6 @@
 var RoundsCollection = Backbone.Collection.extend({
 	model: Round,
-	localStorage: new Backbone.LocalStorage('alculator'),
-	url: '/rounds',
+	url: '/api/rounds',
 });
 
 console.log('Rounds');

@@ -4,6 +4,13 @@ var beerView = new BeerView();
 var bacMeterView = new BacMeterView();
 var alculatorView = new AlculatorView();
 
+var round = [
+	{hours: 1, sex: 'male', lbs: 155, abv: 5, drinks: 3}
+]
+
+new RoundView(round);
+
+
 
 	$('#liquor-tab').on('click',
 		function(e) {
@@ -48,7 +55,7 @@ var alculatorView = new AlculatorView();
 		console.log(abv);
 		console.log(sex);
 		$.ajax({
-			url: '/rounds',
+			url: '/api/rounds',
 			method: 'POST',
 			data: {
 				lbs: document.getElementById('lbs').value,

@@ -6,9 +6,9 @@ var Round = Backbone.Model.extend({
 		drinks: '',
 		abv: '',
 		bac: '',
+		rate: ''
 	},
-	url: '/rounds',
-	localStorage: true,
+	url: '/api/rounds',
 });
 
 console.log('Round');
