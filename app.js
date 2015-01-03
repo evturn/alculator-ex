@@ -12,6 +12,16 @@ app.get('/api', function( request, response) {
     response.send('API is running');
 });
 
+app.get('/api/rounds', function(request, response) {
+  return RoundModel.find(function(err, rounds){
+    if(!err) {
+      return response.send(rounds);
+    } else {
+      return console.log(err);
+    }
+  })
+})
+
 
 
 //Where to serve static content
@@ -38,19 +48,22 @@ var Round = new mongoose.Schema({
   rate: Number
 })
 
-  //Configure server
-  app.configure(function() {
-  
-  //parses request body and populates request.body
-  app.use(express.bodyParser());
+var RoundModel = mongoose.model('Round', Round);
 
-  //checks request.body for HTTP method overrides
-  app.use(express.methodOverride());
+//Configure server
+app.configure(function() {
 
-  //perform route lookup based on url and HTTP method
-  app.use(app.router);
+//parses request body and populates request.body
+app.use(express.bodyParser());
 
-  //Show all errors in development
-  app.use(express.errorHandler({dumpExceptions: true, showStack: true}));
+//checks request.body for HTTP method overrides
+app.use(express.methodOverride());
+
+//perform route lookup based on url and HTTP method
+app.use(app.router);
+
+//Show all errors in development
+app.use(express.errorHandler({dumpExceptions: true, showStack: true}));
+
 });
 
