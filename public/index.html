@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Alculator</title>
+	<link rel="stylesheet" type="text/css" href="stylesheets/lib/bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/lib/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+	
+</head>
+<body>
+	
+<div class="container">
+<div class="row col-lg-12" id="header">
+	<div class="col-md-12" id="page-title">
+	<h1><em>ALC</em>ULATOR</h1>
+</div>
+
+<ul class="nav nav-tabs" id="tabs">
+
+  <li role="presentation" class="active" id="beer-tab"><a href="#">BEER</a></li>
+  
+  <li role="presentation" id="liquor-tab"><a href="#">LIQUOR</a></li>
+    
+  <li role="presentation" id="wine-tab"><a href="#">WINE</a></li>
+  
+</ul>
+</div>
+
+<div class="row col-lg-4" id="search-content">
+	<div class="row col-lg-12 col-lg-offset-1 form-group" id="search-container">
+
+	<script type="text/template" id="beerSearchTemplate">
+<% console.log('beer clicked') %>
+	<div class="row col-lg-12 col-lg-offset-1 form-group">
+		<h3>BEER</h3>
+		<form id='beer-search'>
+	  <label for="beer">FIND A BEER</label>
+	  <input class="form-control input-lg" type="text" name="query" id="beer-query" placeholder="Beer">
+	</div>
+	<div class="row col-lg-6 col-lg-offset-1">
+		<input class="btn btn-default btn-lg btn-block" type="submit" value="GRAB" id="beer-submit">
+		</form>
+	</div>
+</script>
+
+	<script type="text/template" id="liquorSearchTemplate">
+<% console.log('liquor clicked') %>
+	<div class="row col-lg-12 col-lg-offset-1 form-group">
+		<h3>SHOTS</h3>
+		<form id='liquor-search'>
+	  <label for="Liquor">FIND A LIQUOR</label>
+	  <input class="form-control input-lg" type="password" name="query" id="liquor-query" placeholder="Liquor">
+	</div>
+	<div class="row col-lg-6 col-lg-offset-1">
+		<input class="btn btn-default btn-lg btn-block" type="submit" value="GRAB" id="liquor-submit">
+		</form>
+	</div>
+</script>
+	<script type="text/template" id="wineSearchTemplate">
+	<% console.log('wine clicked') %>
+	<div class="row col-lg-12 col-lg-offset-1 form-group">
+		<h3>WINE</h3>
+		<form id='wine-search'>
+	  <label for="Wine">FIND A WINE</label>
+	  <input class="form-control input-lg" type="text" name="query" id="wine-query" placeholder="Wine">
+	</div>
+	<div class="row col-lg-6 col-lg-offset-1">
+		<input class="btn btn-default btn-lg btn-block" type="submit" value="GRAB" id="wine-submit">
+		</form>
+	</div>
+</script>
+
+</div>
+
+<div class="row col-lg-12 col-lg-offset-1 form-group" id="search-results">
+
+	<script type="text/template" id="beerTabTemplate">
+	<div class="row col-lg-12 col-lg-offset-1 form-group">
+		
+		<div class="row col-lg-12 col-lg-offset-1">
+			<div class="row col-lg-3">
+				<img src="<%= labels['medium'] %>" class="fit">
+			</div>
+			<div class="col-lg-6 col-lg-offset-3">
+				<h4><%= name %>
+				<%= style['abvMax'] %>%</h4>
+				<input class="btn btn-default btn-md btn-block" type="submit" value="&#8776; ALCULATE">
+			</div>
+		</div>
+
+		<div class="row col-lg-12">
+			<div class="col-lg-6 col-lg-offset-6">
+			</div>
+		</div>
+	</div>
+</script>	
+
+</div>
+</div>
+	
+<div class="row col-lg-4">
+	<div class="row col-lg-12 col-lg-offset-1" id="bac-meter">
+	<script type="text/template" id="bacMeterTemplate">
+	<h3>BAC</h3>
+		<script>
+(function() {
+  var Needle, arc, arcEndRad, arcStartRad, barWidth, chart, chartInset, degToRad, el, endPadRad, height, margin, needle, numSections, padRad, percToDeg, percToRad, percent, radius, sectionIndx, sectionPerc, startPadRad, svg, totalPercent, width, _i;
+
+  percent = .90;
+
+  barWidth = 60;
+
+  numSections = 5;
+
+  sectionPerc = 1 / numSections / 2;
+
+  padRad = 0.05;
+
+  chartInset = 10;
+
+  totalPercent = .75;
+
+  el = d3.select('#bac-meter');
+
+  margin = {
+    top: 20,
+    right: 20,
+    bottom: 30,
+    left: 20
+  };
+
+  width = el[0][0].offsetWidth - margin.left - margin.right;
+
+  height = width;
+
+  radius = Math.min(width, height) / 2;
+
+  percToDeg = function(perc) {
+    return perc * 360;
+  };
+
+  percToRad = function(perc) {
+    return degToRad(percToDeg(perc));
+  };
+
+  degToRad = function(deg) {
+    return deg * Math.PI / 180;
+  };
+
+  svg = el.append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom);
+
+  chart = svg.append('g').attr('transform', "translate(" + ((width + margin.left) / 2) + ", " + ((height + margin.top) / 2) + ")");
+
+  for (sectionIndx = _i = 1; 1 <= numSections ? _i <= numSections : _i >= numSections; sectionIndx = 1 <= numSections ? ++_i : --_i) {
+    arcStartRad = percToRad(totalPercent);
+    arcEndRad = arcStartRad + percToRad(sectionPerc);
+    totalPercent += sectionPerc;
+    startPadRad = sectionIndx === 0 ? 0 : padRad / 2;
+    endPadRad = sectionIndx === numSections ? 0 : padRad / 2;
+    arc = d3.svg.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - barWidth).startAngle(arcStartRad + startPadRad).endAngle(arcEndRad - endPadRad);
+    chart.append('path').attr('class', "arc chart-color" + sectionIndx).attr('d', arc);
+  }
+
+  Needle = (function() {
+    function Needle(len, radius) {
+      this.len = len;
+      this.radius = radius;
+    }
+
+    Needle.prototype.drawOn = function(el, perc) {
+      el.append('circle').attr('class', 'needle-center').attr('cx', 0).attr('cy', 0).attr('r', this.radius);
+      return el.append('path').attr('class', 'needle').attr('d', this.mkCmd(perc));
+    };
+
+    Needle.prototype.animateOn = function(el, perc) {
+      var self;
+      self = this;
+      return el.transition().delay(500).ease('elastic').duration(3000).selectAll('.needle').tween('progress', function() {
+        return function(percentOfPercent) {
+          var progress;
+          progress = percentOfPercent * perc;
+          return d3.select(this).attr('d', self.mkCmd(progress));
+        };
+      });
+    };
+
+    Needle.prototype.mkCmd = function(perc) {
+      var centerX, centerY, leftX, leftY, rightX, rightY, thetaRad, topX, topY;
+      thetaRad = percToRad(perc / 2);
+      centerX = 0;
+      centerY = 0;
+      topX = centerX - this.len * Math.cos(thetaRad);
+      topY = centerY - this.len * Math.sin(thetaRad);
+      leftX = centerX - this.radius * Math.cos(thetaRad - Math.PI / 2);
+      leftY = centerY - this.radius * Math.sin(thetaRad - Math.PI / 2);
+      rightX = centerX - this.radius * Math.cos(thetaRad + Math.PI / 2);
+      rightY = centerY - this.radius * Math.sin(thetaRad + Math.PI / 2);
+      return "M " + leftX + " " + leftY + " L " + topX + " " + topY + " L " + rightX + " " + rightY;
+    };
+
+    return Needle;
+
+  })();
+
+  needle = new Needle(90, 15);
+
+  needle.drawOn(chart, 0);
+
+  needle.animateOn(chart, percent);
+
+}).call(this);
+</script>
+	</script>
+</div>
+<div class="row col-lg-12 col-lg-offset-1" id="bac-container">	
+	<script type="text/template" id="bacTemplate">
+	<h3>YOUR BAC LEVEL</h3>
+		<h2>&#8776; <%= bac %></h2>
+	</script>
+
+</div>
+</div>
+
+<div class="row col-lg-4" id="alculator">
+	<script type="text/template" id="alculatorTemplate">
+	<div class="row col-lg-12 col-lg-offset-1 form-group" id="sex">
+		<h3>ALCULATE</h3>
+		<div class="col-lg-6">
+			<label>
+	  	<input type="radio" value="male" id="male" name="male">
+	  	MALE</label>
+		</div>
+		<div class="col-lg-6">
+			<label>
+	  	<input type="radio" value="female" id="female" name="female">
+			FEMALE</label>
+		</div>
+	</div>
+	<div class="row col-lg-12 col-lg-offset-1 form-group">
+		<div class="col-lg-6">
+			<label for="hours">HOURS PASSED</label>
+			<select class="form-control input-lg" name="hours" id="hours">
+			  <option>0</option>
+			  <option>1</option>
+			  <option>2</option>
+			  <option>3</option>
+			  <option>4</option>
+			  <option>5</option>
+			  <option>6</option>
+			  <option>7</option>
+			  <option>8</option>
+			  <option>9</option>
+			</select>
+		</div>
+		<div class="col-lg-6">
+			<label for="lbs">WEIGHT IN LBS</label>
+	    <input class="form-control input-lg" type="password" id="lbs" name="lbs" placeholder="***">
+		</div>
+	</div>
+	<div class="row col-lg-12 col-lg-offset-1 form-group">
+		<div class="col-lg-6">
+			<label for="drinks">&numero; of DRINKS</label>
+			<select class="form-control input-lg" name="drinks" id="drinks">
+			  <option>0</option>
+			  <option>1</option>
+			  <option>2</option>
+			  <option>3</option>
+			  <option>4</option>
+			  <option>5</option>
+			  <option>6</option>
+			  <option>7</option>
+			  <option>8</option>
+			  <option>9</option>
+			</select>
+		</div>
+		<div class="col-lg-6">
+			<label for="ABV">ALCOHOL %</label>
+			<input class="form-control input-lg" type="text" id="abv" name="abv" placeholder="4.5">
+		</div>
+	</div>
+	<div class="row col-lg-12 col-lg-offset-1 align" id="bac-submit">
+		<label for="bac-submit">CHEERS WHEN YOU'RE READY</label>
+		<div class="col-lg-12 form-group">
+			<input class="btn btn-default btn-lg btn-block" type="submit" value="CHEERS" id="bac-submit-btn">
+		</div>	
+	</div>
+</script>
+</div>
+
+
+</div>
+
+
+
+
+
+<script src="javascripts/lib/jquery.js"></script>
+<script src="javascripts/lib/underscore.js"></script>
+<script src="javascripts/lib/backbone.js"></script>
+<script src="javascripts/lib/d3.js"></script>
+<script src="javascripts/lib/bootstrap.js"></script>
+<script src="javascripts/models/round.js"></script>
+<script src="javascripts/models/beer.js"></script>
+<script src="javascripts/views/alculator.js"></script>
+<script src="javascripts/views/bacMeter.js"></script>
+<script src="javascripts/views/barTab.js"></script>
+<script src="javascripts/views/round.js"></script>
+<script src="javascripts/views/beer.js"></script>
+<script src="javascripts/views/liquor.js"></script>
+<script src="javascripts/views/wine.js"></script>
+<script src="javascripts/app.js"></script>
+
+
+</body>
+</html>
