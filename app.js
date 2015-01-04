@@ -1,5 +1,6 @@
-// var bodyParser = require('body-parser'), 
-path = require('path'), //Utilities for dealing with file paths
+bodyParser = require('body-parser');
+parseUrlencoded = bodyParser.urlencoded({extended: false});
+path = require('path'); //Utilities for dealing with file paths
 // var mongoose = require('mongoose'); 
 
 ///////////////////////////
@@ -19,6 +20,13 @@ var blocks = {
   'Movable': 'Could be moved',
   'Rotating': 'Moving in a circle'
 };
+
+app.post('/blocks', parseUrlencoded, function(request, response) {
+  //returns form data
+  var newBlock = request.body;
+  blocks[newBlock.name] = newBlock.description;
+  response.status(201).json(newBlock.name);
+});
 
 var locations = {
   'Fixed': 'First floor', 'Movable': 'Second floor', 'Rotating': 'Penthouse'
