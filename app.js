@@ -18,15 +18,8 @@ only_get = require('./only_get');
 
 
 
-
-
-app.route('/blocks/:name')
-  .get(function(request, response) {
-
-});
-  .delete(function(request, response) {
-
-});
+var blocks = require('./routes/blocks');
+app.use('/blocks', blocks);
 
 
 

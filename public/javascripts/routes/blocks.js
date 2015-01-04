@@ -25,6 +25,12 @@ router.route('/:name')
 	  request.blockName = block;
 	  next();
 });
+	 .get(function(request, response) {
+
+});
+  .delete(function(request, response) {
+
+});
 
 
 
