@@ -120,7 +120,7 @@ new RoundView(round);
 		var content, block;
 		for(var i in blocks){
 			block = blocks[i];
-			content = '<a href="/blocks/'+block+'">'+block'</a>';
+			content = '<a href="/blocks/'+block+'">'+block'</a>'
 			'<a href="#" data-block='+block+'">delete</a>'
 			list.push($('<li>', {html: content}));
 		}

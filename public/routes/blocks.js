@@ -13,7 +13,7 @@ var blocks = {
 router.route('/')
 	.get(function(request, response) {
 
-});
+})
   .post(parseUrlencoded, function(request, response) {
 
 });
@@ -24,10 +24,10 @@ router.route('/:name')
 	  var block = name[0].toUpperCase() + name.slice(1).toLowerCase();
 	  request.blockName = block;
 	  next();
-});
+})
 	 .get(function(request, response) {
 
-});
+})
   .delete(function(request, response) {
 
 });

@@ -18,7 +18,7 @@ only_get = require('./only_get');
 
 
 
-var blocks = require('./routes/blocks');
+var blocks = require('./public/routes/blocks');
 app.use('/blocks', blocks);
 
 
@@ -71,15 +71,15 @@ app.get('/locations/:name', function(request, response) {
 });
 
 
-app.use(function(request, response, next){
-  if (request.path === "/blocks"){
-    next();
-  } else {
-    response.status(404).json("Path requested does not exist");
-  }
-});
+// app.use(function(request, response, next){
+//   if (request.path === "/blocks"){
+//     next();
+//   } else {
+//     response.status(404).json("Path requested does not exist");
+//   }
+// });
 
-var blocks = require('./routes/blocks');
+var blocks = require('./public/routes/blocks');
 app.use('/blocks', blocks);
 
 
