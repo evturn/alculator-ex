@@ -9,6 +9,7 @@ path = require('path'); //Utilities for dealing with file paths
 express = require('express');
 app = express();
 
+
 logger = require('./logger');
   app.use(logger);
 
@@ -20,6 +21,25 @@ var blocks = {
   'Movable': 'Could be moved',
   'Rotating': 'Moving in a circle'
 };
+
+app.route('/blocks')
+  .get(function(request, response) {
+
+});
+  .post(parseUrlencoded, function(request, response) {
+
+});
+
+app.route('/blocks/:name')
+  .get(function(request, response) {
+
+});
+  .delete(function(request, response) {
+
+});
+
+
+
 
 app.delete('/blocks/:name', function(request, response) {
   delete blocks[request.blockName];
@@ -77,16 +97,12 @@ app.get('/locations/:name', function(request, response) {
 
 
 app.use(function(request, response, next){
-  if (request.path === "/cities"){
+  if (request.path === "/blocks"){
     next();
   } else {
     response.status(404).json("Path requested does not exist");
   }
-});
-app.get('/cities', function(request, response){
-  var cities = ['Caspiana', 'Indigo', 'Paradise'];
-  response.json(cities);
-});
+
 
 
 
