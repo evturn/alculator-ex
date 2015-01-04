@@ -48,12 +48,7 @@ var locations = {
 };
 
 //Used for dynamic routing
-app.param('name', function(request, response, next) {
-  var name = request.params.name;
-  var block = name[0].toUpperCase() + name.slice(1).toLowerCase();
-  request.blockName = block;
-  next();
-});
+
 
 
 app.get('/blocks', function(request, response) {
