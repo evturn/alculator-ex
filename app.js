@@ -16,19 +16,9 @@ logger = require('./logger');
 only_get = require('./only_get');
   app.use(only_get);
 
-var blocks = {
-  'Fixed': 'Gonna stay where it is',
-  'Movable': 'Could be moved',
-  'Rotating': 'Moving in a circle'
-};
 
-app.route('/blocks')
-  .get(function(request, response) {
 
-});
-  .post(parseUrlencoded, function(request, response) {
 
-});
 
 app.route('/blocks/:name')
   .get(function(request, response) {
@@ -93,16 +83,16 @@ app.get('/locations/:name', function(request, response) {
 });
 
 
-
-
-
 app.use(function(request, response, next){
   if (request.path === "/blocks"){
     next();
   } else {
     response.status(404).json("Path requested does not exist");
   }
+});
 
+var blocks = require('./routes/blocks');
+app.use('/blocks', blocks);
 
 
 
