@@ -21,6 +21,11 @@ var blocks = {
   'Rotating': 'Moving in a circle'
 };
 
+app.delete('/blocks/:name', function(request, response) {
+  delete blocks[request.blockName];
+  response.sendStatus(200);
+});
+
 app.post('/blocks', parseUrlencoded, function(request, response) {
   //returns form data
   var newBlock = request.body;
